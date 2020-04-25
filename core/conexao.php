@@ -1,33 +1,32 @@
 <?php
-
-
 //Criar as constantes com as credencias de acesso ao banco de dados
-define('HOST', 'localhost');
-define('USER', 'postgres');
-define('PASS', 'postgres');
-define('DBNAME', 'aplicacaoweb');
-define('PORT', '5432');
 
-//Criar a conexão com banco de dados usando o PDO e a porta do banco de dados
-//Utilizar o Try/Catch para verificar a conexão.
+define('HOST', 'host');
+define('USER', 'usuario');
+define('PASS', 'senha');
+define('DBNAME', 'nome do db');
+define('PORT', 'porta');
 
 class Conexao {
-
+    //Cria a conexão com banco de dados usando o PDO e a porta do banco de dados
+    
     protected $conn = null;
+    public static $instance;
 
-    public function Connect(){
-        try {
+    private function __construct() {
+        //construtor privado e vazio pra evitar a criação de novas instancias do banco
+    }
 
-
-            $this->conn = new pdo('pgsql:host=' . HOST . ';port=' . PORT . ';dbname=' . DBNAME, USER, PASS);            
-            return $this->conn;
-
-        } catch (PDOException $e) {
-            echo 'Connection error: ' . $e->getMessage();
+    public static function getInstance() {
+    //Conexao com o banco de dados no padrao singleton, retorna uma instancia da classe
+        
+        if (!isset(self::$instance)) {
+            self::$instance = new pdo('pgsql:host=' . HOST . ';port=' . PORT . ';dbname=' . DBNAME, USER, PASS);            
+            
         }
+  
+        return self::$instance;
     }
 
-    public function Close(){
-        $this->conn = null;
-    }
+
 }
