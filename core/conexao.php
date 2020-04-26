@@ -1,10 +1,10 @@
 <?php
 //Criar as constantes com as credencias de acesso ao banco de dados
-define('HOST', 'hard.uniguacu.edu.br');
-define('USER', '2016201393');
-define('PASS', '1393');
-define('DBNAME', '2016201393');
-define('PORT', '5432');
+define('HOST', 'host');
+define('USER', 'usuario');
+define('PASS', 'senha');
+define('DBNAME', 'nome do db');
+define('PORT', 'porta');
 
 class Conexao {
     //Cria a conexão com banco de dados usando o PDO e a porta do banco de dados
