@@ -1,5 +1,7 @@
 <?php
 
+include_once('utils/Utils.php');
+
 
 class Usuario {
     private $id;
@@ -13,36 +15,39 @@ class Usuario {
     }
 
     function setEmail($email){
-        $this->$email = $email;
+        
+        $this->email = $email;
+        
     }
     
     function setNome($setNome){
-        $this->Nome = $setNome;
+        $this->nome = $setNome;
     }
     function setSenha($senha){
-        $this->senha = $senha;
+        $this->senha = Utils::criptografar($senha);
     }
-    function setPontoBonificacao($id){
-        $this->id = $id;
+
+    function setPontosBonificacao($pontos_bonificacao){
+        $this->pontos_bonificacao = $pontos_bonificacao;
     }
 
     function getId(){
         return $this->id;
     }
 
-    function getEmai(){
+    function getEmail(){
         return $this->email;
     }
     function getNome(){
-        return $this->id;
+        return $this->nome;
     }
 
     function getSenha(){
-        return $this->id;
+        return $this->senha;
     }
 
-    function getPons(){
-        return $this->id;
+    function getPontosBonificacao(){
+        return $this->pontos_bonificacao;
     }
      
     
