@@ -30,7 +30,7 @@ class StatusDAO {
     }
          
     public function remove() {
-    // logica para remover cliente do banco
+        // logica para remover status do banco
     }
          
     public function listById($id) {
@@ -46,8 +46,7 @@ class StatusDAO {
     
     }
     public function listAll() {
-        // logica para listar toodos os clientes do banco
-        //$status  = new Status();
+        // logica para listar todos os status do banco        
         $sql = "select * from duvida_status";
         $p_sql = Conexao::getInstance();
         $stmt = $p_sql-> prepare($sql);

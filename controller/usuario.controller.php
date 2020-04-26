@@ -11,7 +11,7 @@ class usuarioDAO {
 
 
     public function save($usuario) {
-        // logica para salvar categoria no banco
+        // logica para salvar usuario no banco
 
         $this -> usuario = $usuario;        
                 
@@ -23,7 +23,7 @@ class usuarioDAO {
     }
          
     public function update($usuario) {
-        // logica para atualizar categoria no banco
+        // logica para atualizar usuario no banco
         $this -> usuario = $usuario;               
         $sql = "UPDATE usuario SET email='{$this->usuario->getEmail()}', nome = {$this->usuario->getNome()}, senha = '{$this->usuario->getSenha()}', pontos_bonificacao={$this->usuario->getPontosBonificacao()}  WHERE id = {$this->usuario->getID()}";                
         $p_sql = Conexao::getInstance();
@@ -32,7 +32,7 @@ class usuarioDAO {
     }
          
     public function remove() {
-    // logica para remover categoria do banco
+    // logica para remover usuario do banco
     }
          
     public function listById($id) {

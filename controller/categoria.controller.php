@@ -34,7 +34,7 @@ class categoriaDAO {
     }
          
     public function listById($id) {
-        // logica para listar status pelo nome
+        // logica para listar categoria pelo nome
 
         $sql = "select * from categoria where id={$id}";
         $p_sql = Conexao::getInstance();
