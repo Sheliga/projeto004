@@ -1,82 +1,185 @@
-<?php
+ <?php
 
+require_once('App/core/conexao.php');
 
+include_once('App/controller/status.controller.php');
+include_once('App/model/status.class.php');
 
+include_once('App/controller/categoria.controller.php');
+include_once('App/model/categoria.class.php');
 
-require_once('core/conexao.php');
-include_once('utils/Utils.php');
+include_once('App/controller/usuario.controller.php');
+include_once('App/model/usuario.class.php');
 
-include_once('controller/status.controller.php');
-include_once('model/status.class.php');
-
-include_once('controller/categoria.controller.php');
-include_once('model/categoria.class.php');
-
-include_once('controller/usuario.controller.php');
-include_once('model/usuario.class.php');
-
+include_once('App/model/duvida.class.php');
 
 
 echo('-------------------------------</br>');
-echo('teste usuario</br>');
+echo('teste duvida</br>');
 
-$usuario = new Usuario();
-$usuario -> setNome("Nome Maneiro ");
-$usuario -> setEmail("email2@email.com");
-$usuario -> setSenha("123456");
-$usuario -> setPontosBonificacao(100);
+$id = 0;
+$titulo = "Titulo php";
+$descricao = "Texto por php";
+$categoria_id = 2;
+$usuario_id = 36;
+$status_id = 1;
+$duvida = new Duvida($id, $titulo, $descricao, $categoria_id, $usuario_id, $status_id);
 
-$usuarioDAO = new usuarioDAO();
 
-$usuarioDAO -> save($usuario);
+echo "<table border =\"1\">";
+echo "  <tr>";
+echo "      <td> {$duvida->getId()}  </td>";
+echo "      <td> {$duvida->getTitulo()}</td>";
+echo "      <td> {$duvida->getDescricao()}  </td>";
+echo "      <td> {$duvida->getCategoriaId()}  </td>";
+echo "      <td> {$duvida->getUsuarioId()}  </td>";
+echo "      <td> {$duvida->getStatusId()}  </td>";
+echo "  </tr>";
 
-$usuario -> setNome("Atualizado por PHP");
-$usuario -> setEmail("atualizadophp@email.com");
-$usuario -> setSenha("2333");
-$usuario -> setPontosBonificacao(150);
 
-$usuarioDAO -> update($usuario);
-$usuarioDAO -> listAll();
-$usuarioDAO -> listById(1);
+echo "</br>";
+$duvida -> save();
+$duvida = $duvida -> listById(6);
+$duvida -> setTitulo("Titulo alterado por php");
+$duvida -> update();
+
+
+
+
+echo "<table border =\"1\">";
+echo "  <tr>";
+echo "      <td> {$duvida->getId()}  </td>";
+echo "      <td> {$duvida->getTitulo()}</td>";
+echo "      <td> {$duvida->getDescricao()}  </td>";
+echo "      <td> {$duvida->getCategoriaId()}  </td>";
+echo "      <td> {$duvida->getUsuarioId()}  </td>";
+echo "      <td> {$duvida->getStatusId()}  </td>";
+echo "  </tr>";
+
+$duvida -> remove(3);
+echo "</br>";
+echo "<table border =\"1\">";
+foreach ($duvida -> listAll() as $duv) {
+    echo "  <tr>";
+    echo "      <td> {$duv->getId()}  </td>";
+    echo "      <td> {$duv->getTitulo()}</td>";
+    echo "      <td> {$duv->getDescricao()}  </td>";
+    echo "      <td> {$duv->getCategoriaId()}  </td>";
+    echo "      <td> {$duv->getUsuarioId()}  </td>";
+    echo "      <td> {$duv->getStatusId()}  </td>";
+    echo "  </tr>";
+}
+echo "</table>";
+/*
+echo('-------------------------------</br>');
+echo('teste Usuario</br>');
+echo('talkey');
+$id = 0;
+$email = "email@teste.com";
+$nome = "Orestes Bileske";
+$senha = "123456";
+$pontos_bonificacao = 50;
+$usuario = new Usuario($id, $nome, $email, $senha, $pontos_bonificacao);
+$usuario -> save();
+
+
+
+$usuario ->remove(2);
+echo "<table border =\"1\">";
+echo "  <tr>";
+echo "      <td> {$usuario->getId()}  </td>";
+echo "      <td> {$usuario->getNome()}</td>";
+echo "      <td> {$usuario->getEmail()}  </td>";
+echo "      <td> {$usuario->getSenha()}  </td>";
+echo "      <td> {$usuario->getPontosBonificacao()}  </td>";
+echo "  </tr>";
+
+$usuario = $usuario ->listById(36);
+echo "  <tr>";
+echo "      <td> {$usuario->getId()}  </td>";
+echo "      <td> {$usuario->getNome()}</td>";
+echo "      <td> {$usuario->getEmail()}  </td>";
+echo "      <td> {$usuario->getSenha()}  </td>";
+echo "      <td> {$usuario->getPontosBonificacao()}  </td>";
+echo "  </tr>";
+
+echo "</table>";
+echo "</br>";
+$usuario -> setNome("nome atualizado pelo php");
+$usuario -> update();
+
+
+echo "<table border =\"1\">";
+foreach ($usuario -> listAll() as $user) {
+    echo "  <tr>";
+        echo "      <td> {$user->getId()}  </td>";
+        echo "      <td> {$user->getNome()}</td>";
+        echo "      <td> {$user->getEmail()}  </td>";
+        echo "      <td> {$user->getSenha()}  </td>";
+        echo "      <td> {$user->getPontosBonificacao()}  </td>";
+    echo "  </tr>";
+}
+echo "</table>";
+
 
 echo('-------------------------------</br>');
 echo('teste status</br>');
+echo('talkey');
 
 $status = new Status("testando");
 
-
-$statusDAO  = new StatusDAO();
-
-$statusDAO->save($status);
-
 $status -> setId(2);
 $status-> setDescricao("alterado por php ");
-$statusDAO->update($status);  
+$status = $status->listById('2');
 
+echo "<table border =\"1\">";
+echo "<tr>";
+echo "<td> {$status->getId()}  </td>";
+echo "<td> {$status->getDescricao()}</td>";
+echo "</tr>";
+echo "</table>";
 
-$statusDAO->listAll();
-$statusDAO->listById('1');
+$status -> setDescricao("Mudado");
+$status -> update();
+$status -> remove(43);
+
+echo "</br>";
+echo "<table border =\"1\">";
+foreach ($status -> listAll() as $stat) {
+    echo "  <tr>";
+    echo "      <td> {$stat->getId()}  </td>";
+    echo "      <td> {$stat->getDescricao()}</td>";
+    echo "  </tr>";
+}
+echo "</table>";
 
 
 echo('-------------------------------</br>');
-echo('teste categoria</br>');
-$categoria = new categoria("testando");
+echo('teste Categoria</br>');
+echo('talkey');
+$categoria = new Categoria();
+$categoria -> setDescricao("muito descriitivo");
+$categoria -> save();
 
+$categoria = $categoria->listById('2');
+$categoria -> setDescricao("muito descriitivo");
+$categoria -> update();
+echo "<table border =\"1\">";
+echo "  <tr>";
+echo "      <td> {$categoria->getId()}  </td>";
+echo "      <td> {$categoria->getDescricao()}</td>";
+echo "  </tr>";
+echo "</table>";
+$categoria -> remove(10);
 
-$categoriaDAO  = new categoriaDAO();
-
-$categoriaDAO->save($categoria);
-
-$categoria -> setId(1);
-$categoria-> setDescricao("alterado por php");
-$categoriaDAO->update($categoria);  
-
-
-$categoriaDAO->listAll();
-$categoriaDAO->listById('1');
-
-
-
-
+echo "</br>";
+echo "<table border =\"1\">";
+foreach ($categoria -> listAll() as $cat) {
+    echo "  <tr>";
+    echo "      <td> {$cat->getId()}  </td>";
+    echo "      <td> {$cat->getDescricao()}</td>";
+    echo "  </tr>";
+}
+echo "</table>";
+*/
 ?>
-
